@@ -24,10 +24,20 @@ $(function(){
 
     /* Po kliknutí na obrázek se náhodně mění fotky prezidentů */
     var foto = $('#kviz img');
-    foto.on('click', function(){
+    foto.on('click', function(e){
         var index = Math.floor(Math.random()*prezidenti.length);
         $(this).attr('src','img/'+prezidenti[index].photo)
                .attr('alt',prezidenti[index].name);
+        if(e.altKey){
+            $('#mojeOkno img').attr('src','img/'+prezidenti[index].photo)
+            .attr('alt',prezidenti[index].name);
+            $('#mojeOkno').find('.modal-title').text(prezidenti[index].name);
+            $('#narozeni').text(prezidenti[index].borned);
+            $('#umrti').text(prezidenti[index].died);
+            $('#popis').text(prezidenti[index].description);
+            $('#mojeOkno').find('a').attr('href', prezidenti[index].link);
+            $('#mojeOkno').modal('show');
+        }
     });
 
     /* Po kliknutí na tlačítko Ověřit se barevně ohraničí fotky */
